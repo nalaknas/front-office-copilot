@@ -4,6 +4,7 @@ version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
     "fastapi>=0.139.0",
+    "psycopg[binary]>=3.3.4",
     "structlog>=26.1.0",
     "uvicorn[standard]>=0.50.2",
 ]
@@ -19,7 +20,7 @@ dev = [
 [tool.ruff]
 line-length = 100
 target-version = "py312"
-src = ["api", "ingestion", "tests"]
+src = ["api", "ingestion", "scripts", "tests"]
 
 [tool.ruff.lint]
 select = [
@@ -34,7 +35,7 @@ select = [
 [tool.mypy]
 python_version = "3.12"
 strict = true
-files = ["api", "ingestion", "tests"]
+files = ["api", "ingestion", "scripts", "tests"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
