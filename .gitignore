@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual envs
+.venv/
+venv/
+
+# Env & secrets
+.env
+.env.local
+*.pem
+
+# OS/editor
+.DS_Store
+.idea/
+.vscode/
+
+# Build artefacts
+build/
+dist/
+
+# Data caches (scrapers write here in dev per spec §2)
+data/
+cache/
