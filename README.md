@@ -1,6 +1,6 @@
 # Front Office Copilot
 
-Multi-agent football front-office system. See [`Front Office Copilot Spec.md`](./Front%20Office%20Copilot%20Spec.md) for the full build spec.
+Multi-agent football front-office system. See [`Front Office Copilot Spec.md`](./Front%20Office%20Copilot%20Spec.md) for the full build spec and [`docs/architecture.md`](./docs/architecture.md) for the current architecture snapshot.
 
 ## Layout
 
