@@ -1,0 +1,56 @@
+flowchart TB
+    subgraph USER["👤 You / Demo Users"]
+        B["Browser"]
+    end
+
+    subgraph VERCEL["Vercel"]
+        FE["Next.js Frontend<br/>chat + dashboard"]
+    end
+
+    subgraph CLOUD["☁️ Cloud (Cloud Run first → K8s later)"]
+        subgraph CONTAINER["🐳 Docker Container — FastAPI Service"]
+            API["FastAPI<br/>POST /evaluate-transfer"]
+            subgraph GRAPH["LangGraph Runtime"]
+                SUP["Supervisor<br/>(routes + writes final memo)"]
+                SCOUT["Scout Agent<br/>tools: search_players, compare"]
+                VAL["Valuation Agent<br/>tools: comparable transfers"]
+                COMP["Compliance Agent<br/>tools: RAG retrieval, PSR calc"]
+            end
+        end
+        WORKER["🐳 Ingestion Worker<br/>FBref scraper (rate-limited)"]
+    end
+
+    subgraph SUPA["Supabase (the spine)"]
+        PG[("Postgres<br/>players · contracts · finances")]
+        VEC[("pgvector<br/>FFP / PSR rule chunks")]
+        CKPT[("LangGraph checkpoints<br/>pause / resume / human approval")]
+        STORE["Storage<br/>regulation PDFs"]
+    end
+
+    subgraph EXT["External"]
+        LLM["Anthropic API"]
+        FBREF["FBref / datasets"]
+    end
+
+    subgraph OBS["Observability"]
+        LF["Langfuse<br/>traces · cost · evals"]
+        OTEL["OpenTelemetry → Grafana<br/>service metrics"]
+    end
+
+    B --> FE
+    FE -->|HTTPS| API
+    API --> SUP
+    SUP <--> SCOUT
+    SUP <--> VAL
+    SUP <--> COMP
+    SCOUT -->|SQL| PG
+    VAL -->|SQL| PG
+    COMP -->|similarity search| VEC
+    COMP -->|finance queries| PG
+    SUP --> CKPT
+    SCOUT & VAL & COMP & SUP -.->|LLM calls| LLM
+    WORKER -->|scrape| FBREF
+    WORKER -->|upsert| PG
+    STORE -->|parse · chunk · embed| VEC
+    GRAPH -.->|every step traced| LF
+    API -.->|metrics| OTEL

@@ -4,6 +4,8 @@ Snapshot as of Phase 0. Will be updated at the end of every phase per the DoD in
 
 ## System diagram
 
+The version below is annotated to distinguish "built today" (solid edges) from "arrives later" (dashed edges to Langfuse and OTel). For a cleaner "system at a glance" cut that ignores the Phase 0 vs. deferred distinction, see [`Front Office Architecture.mermaid`](./Front%20Office%20Architecture.mermaid).
+
 ```mermaid
 flowchart LR
     user(["User"]) --> fe["Next.js frontend<br/>(Vercel)"]
