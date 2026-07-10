@@ -4,6 +4,8 @@ version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
     "fastapi>=0.139.0",
+    "kagglehub>=1.0.2",
+    "pandas>=3.0.3",
     "psycopg[binary]>=3.3.4",
     "structlog>=26.1.0",
     "uvicorn[standard]>=0.50.2",
@@ -13,6 +15,7 @@ dependencies = [
 dev = [
     "httpx>=0.28.1",
     "mypy>=2.1.0",
+    "pandas-stubs>=3.0.3.260530",
     "pytest>=9.1.1",
     "ruff>=0.15.20",
 ]
@@ -36,6 +39,10 @@ select = [
 python_version = "3.12"
 strict = true
 files = ["api", "ingestion", "scripts", "tests"]
+
+[[tool.mypy.overrides]]
+module = ["kagglehub", "kagglehub.*"]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
