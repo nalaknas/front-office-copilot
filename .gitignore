@@ -27,3 +27,6 @@ dist/
 # Data caches (scrapers write here in dev per spec §2)
 data/
 cache/
+
+# soccerdata / seleniumbase driver bootstrap
+downloaded_files/
