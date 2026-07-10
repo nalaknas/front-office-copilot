@@ -52,6 +52,7 @@ class CachedHTTPClient:
     user_agent: str = DEFAULT_UA
     base_dir: Path | None = None
     timeout_seconds: float = 30.0
+    auth: tuple[str, str] | None = None
 
     def __post_init__(self) -> None:
         root = self.base_dir or _default_cache_dir()
@@ -62,6 +63,7 @@ class CachedHTTPClient:
             headers={"User-Agent": self.user_agent, "Accept-Language": "en"},
             timeout=self.timeout_seconds,
             follow_redirects=True,
+            auth=self.auth,
         )
 
     def _paths(self, method: str, url: str, body: str = "") -> tuple[Path, Path]:
